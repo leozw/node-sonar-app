@@ -1,13 +1,10 @@
-name: Node.js CI and SonarQube
+name: SonarQube
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
-env:
-  IMAGE_NAME: node-sonar-app
 
 jobs:
   build:
