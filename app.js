@@ -10,8 +10,10 @@ app.get('/buteco', (req, res) => {
   res.json({ mensagem: 'Bora tomar uma?' });
 });
 
-app.listen(port, () => {
-  console.log(`API rodando em http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`API rodando em http://localhost:${port}`);
+  });
+}
 
-module.exports = app; 
+module.exports = app;
