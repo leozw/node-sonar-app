@@ -31,19 +31,17 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-    # Adicione a etapa para verificar o status do Quality Gate
     - name: SonarQube Quality Gate check
       id: sonarqube-quality-gate-check
       uses: sonarsource/sonarqube-quality-gate-action@master
-      with:
-        sonarHost: ${{ secrets.SONAR_HOST_URL }}
-        sonarToken: ${{ secrets.SONAR_TOKEN }}
-        projectKey: ${{ env.PROJECT_KEY }} 
+      timeout-minutes: 5
+
+    - name: "Show SonarQube Quality Gate Status"
+      run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.qualityGateStatus }}"
 
     - name: "Fail if Quality Gate failed"
       run: |
-        if [[ "${{ steps.sonarqube-quality-gate-check.outputs.status }}" != "OK" ]]; then
+        if [[ "${{ steps.sonarqube-quality-gate-check.outputs.qualityGateStatus }}" != "PASSED" ]]; then
           echo "Quality Gate has failed. Exiting."
           exit 1
         fi
-      
