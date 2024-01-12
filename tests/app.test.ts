@@ -1,6 +1,7 @@
-const request = require('supertest');
-const app = require('../app');
-let server;
+import request from 'supertest';
+import app from '../app';
+
+let server: any;
 
 beforeAll(() => {
   server = app.listen(3001);

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  node-app:
+    build: .  
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - OTEL_SERVICE_NAME=servico-node
+      - OTEL_TRACES_EXPORTER=otlp 
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
+      # - NODE_OPTIONS="--require @opentelemetry/auto-instrumentations-node/register"
+      - OTEL_NODE_RESOURCE_DETECTORS="env,host,os"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - /home/buteco/estudos/node-sonar-app/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # GRPC
+      - "4318:4318" # HTTP
+      - "8888:8888" # Metrics OpenTelemetry
