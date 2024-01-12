@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: node-sonar-app-ingress
+  annotations: 
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: letsencrypt-prom
+spec:
+  tls:
+  - hosts:
+    - node-sonar-app.zwirtes.com
+    secretName: tls-secret-node-sonar-app
+  rules:
+  - host: node-sonar-app.zwirtes.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: prometheus-node-sonar-app
+            port:
+              number: 3000

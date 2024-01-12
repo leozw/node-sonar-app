@@ -10,7 +10,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/buteco', (req: Request, res: Response) => {
-  res.json({ mensagem: 'Bora tomar uma?' });
+  res.json({ "e aí?": 'Bora tomar uma?' });
 });
 
 if (process.env.NODE_ENV !== 'test') {
