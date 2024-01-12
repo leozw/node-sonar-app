@@ -30,6 +30,7 @@ yarn-error.log*
 /docker-compose.yml
 Dockerfile
 *.dockerignore
+secrets.env
 
 # Arquivos de configuração do editor/IDE
 .settings/
