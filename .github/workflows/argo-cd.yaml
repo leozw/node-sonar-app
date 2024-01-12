@@ -1,0 +1,18 @@
+name: Argo CD
+
+on:
+  repository_dispatch:
+    types: [action-argo-cd]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPOSITORIES_TOKEN }}
+        repository: leozw/argocd-gitops
+        event-type: new-image
+        client-payload: '{"image": "leonardozwirtes/${{ env.IMAGE_NAME }}:v1.0.${{ github.run_number }}"}' 

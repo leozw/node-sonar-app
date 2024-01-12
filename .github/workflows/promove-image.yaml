@@ -27,3 +27,11 @@ jobs:
         context: .
         push: true
         tags: leonardozwirtes/${{ env.IMAGE_NAME }}:latest
+
+    - name: Trigger Docker Build Workflow
+      if: success() 
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPOSITORIES_TOKEN }}
+        repository: leozw/node-sonar-app
+        event-type: action-argo-cd
