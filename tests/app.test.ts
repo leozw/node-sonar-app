@@ -21,6 +21,6 @@ describe('Testes da API', () => {
   test('GET /buteco', async () => {
     const response = await request(server).get('/buteco');
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual({ mensagem: 'Bora tomar uma?' });
+    expect(response.body).toEqual({ "e aí?": 'Bora tomar uma?' });
   });
 });
